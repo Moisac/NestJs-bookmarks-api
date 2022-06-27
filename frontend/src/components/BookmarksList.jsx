@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { API_ROOT, JWT_TOKEN } from '@env'
 import { Box, FlatList, Heading, Button, HStack, VStack, Text, Spacer, DeleteIcon, InfoIcon } from "native-base";
+import { useNavigation } from '@react-navigation/native';
 
-const BookmarksList = ({ navigation }) => {
+const BookmarksList = () => {
   const [bookmarks, setBookmarks] = useState([])
   const [loading, setLoading] = useState(false)
+  const navigation = useNavigation();
 
   const getBookmarks = async () => {
     try {
@@ -31,8 +33,8 @@ const BookmarksList = ({ navigation }) => {
   return (
     <Box>
       <Button shadow={2} onPress={() => navigation.navigate('AddBookmark')}>
-            Add Bookmark
-          </Button>
+        Add Bookmark
+      </Button>
       <Heading fontSize="xl" p="4" pb="3">
         Bookmarks
       </Heading>

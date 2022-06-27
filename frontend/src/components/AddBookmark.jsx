@@ -1,13 +1,17 @@
 import { useState } from 'react'
-import { Input, Stack, Center, TextArea, Button, useToast, Box } from "native-base"
+import { Input, Stack, Center, TextArea, useToast, Box, Button } from "native-base"
+import { Button as DefaultButton } from 'react-native';
 import { JWT_TOKEN, API_ROOT } from '@env'
+import { useNavigation } from '@react-navigation/native';
 
 
 const AddBookmark = () => {
     const [formData, setData] = useState({})
     const [loadingSubmit, setLoadingSubmit] = useState(false)
 
-    const toast = useToast();
+    const navigation = useNavigation()
+
+    const toast = useToast()
 
     const handlePostBookmark = async ({ navigation }) => {
         try {
@@ -48,9 +52,11 @@ const AddBookmark = () => {
 
   return (
     <Center>
-          <Button shadow={2} onPress={() => navigation.navigate('BookmarkList')}>
-            BookmarkList
-          </Button>
+      <DefaultButton 
+        shadow={2} 
+        onPress={() => navigation.navigate('BookmarksList')}
+        title="View Bookmark List"
+      />
       <Stack mt={3} space={4} w="75%" maxW="300px">
         <Input size="md" placeholder="Title" onChangeText={
             value => setData({ ...formData, title: value})

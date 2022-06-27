@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { NativeBaseProvider, Box, Button } from 'native-base'
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, View, ActivityIndicator, Text } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import AddBookmark from './src/components/AddBookmark'
 import { API_ROOT, JWT_TOKEN } from '@env'
 import BookmarksList from './src/components/BookmarksList'
@@ -12,7 +12,7 @@ export default function App() {
   const [isLoading, setLoading] = useState(false)
   const [data, setData] = useState()
 
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator()
 
   const getUser = async () => {
     try {
@@ -35,32 +35,27 @@ export default function App() {
   return (
     <NavigationContainer>
       <NativeBaseProvider>
-        <View style={styles.container}>
           <StatusBar style='auto' />
-          <Stack.Navigator>
+
+          <Stack.Navigator initialRouteName='AddBookmark'>
+            <Stack.Screen 
+              name="BookmarksList" 
+              component={BookmarksList}
+              options={{
+                title: 'View all bookmarks',
+                headerTitleAlign: 'center',
+                headerShown: true
+              }}
+            />
+
             <Stack.Screen
               name="AddBookmark"
               component={AddBookmark}
-              options={{ title: 'Add bookmark' }}
+              options={{ title: 'Add bookmark',  }}
             />
-            <Stack.Screen name="BookmarkList" component={BookmarksList} />
           </Stack.Navigator>
-          <Box>
-            {isLoading ? <ActivityIndicator /> : <Text>{data?.email}</Text>}
-          </Box>
-        </View>
-        <AddBookmark />
-        <BookmarksList />
       </NativeBaseProvider>
     </NavigationContainer>
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
