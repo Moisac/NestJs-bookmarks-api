@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Input, Stack, Center, TextArea, useToast, Box, Button } from "native-base"
+import { Input, Stack, Center, TextArea, useToast, Box, Button, Text } from "native-base"
 import { JWT_TOKEN, API_ROOT } from '@env'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'
 import { StyleSheet } from 'react-native'
+import { validateUrl } from '../util/ValidationUtils'
 
 
 const AddBookmark = () => {
@@ -71,6 +72,12 @@ const AddBookmark = () => {
             value => setData({ ...formData, link: value})
         }
         />
+        { 
+          formData?.link && !validateUrl(formData?.link) ? 
+          <Text style={styles.errorText}>Invalid URL format</Text> : 
+          <></>
+        }
+
         <TextArea h={20} placeholder="Description" onChangeText={
             value => setData({ ...formData, description: value})
         }
@@ -99,4 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  errorText: {
+    color: 'red'
+  }
 })
