@@ -13,7 +13,7 @@ const AddBookmark = () => {
 
     const toast = useToast()
 
-    const handlePostBookmark = async ({ navigation }) => {
+    const handlePostBookmark = async () => {
         try {
             setLoadingSubmit(true)
           const response = await fetch(`${API_ROOT}/bookmarks`, {
@@ -27,14 +27,9 @@ const AddBookmark = () => {
                 ...formData
             })
           })
-          const json = await response.json()
-          if(!!json) {
+          await response.json()
+          if(response.ok) {
             setData({ title: '' })
-          }
-        } catch (error) {
-          console.error(error)
-        } finally {
-            setLoadingSubmit(false)
             setData({})
             toast.show({
                 render: () => {
@@ -42,7 +37,13 @@ const AddBookmark = () => {
                           The bookmark was added
                         </Box>
                 }
-              });
+            });
+          }
+          navigation.navigate('BookmarksList')
+        } catch (error) {
+          console.error(error)
+        } finally {
+            setLoadingSubmit(false)
         }
       }
 
