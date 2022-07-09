@@ -3,6 +3,7 @@ import { API_ROOT, JWT_TOKEN } from '@env'
 import { Box, FlatList, Heading, Button, HStack, VStack, Text, Spacer, DeleteIcon, InfoIcon, useToast } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 import CustomAlertDialog from './common/CustomAlertDialog'
+import { StyleSheet } from 'react-native'
 
 const BookmarksList = () => {
   const [bookmarks, setBookmarks] = useState([])
@@ -69,35 +70,31 @@ const BookmarksList = () => {
         <Heading fontSize="xl" p="4" pb="3">
           Bookmarks
         </Heading>
-        <FlatList data={bookmarks} renderItem={({
+        <FlatList srtyle={styles.wrapper} data={bookmarks} renderItem={({
         item
       }) => <Box borderBottomWidth="1" _dark={{
         borderColor: "gray.600"
       }} borderColor="coolGray.200" pl="4" pr="5" py="2">
-          <HStack space={3} justifyContent="space-between">
+          <HStack>
             <VStack>
-              <Text _dark={{
-                color: "warmGray.50"
-              }} color="coolGray.800" bold>
+              <Text bold>
                       {item.title}
               </Text>
-              <Text color="coolGray.600" _dark={{
-                color: "warmGray.200"
-              }}>
+              <Text>
                 {item.description}
               </Text>
             </VStack>
             <Spacer />
-            <Text fontSize="xs" _dark={{
-              color: "warmGray.50"
-            }} color="coolGray.800" alignSelf="flex-start">
-                <Button colorScheme="danger" onPress={() => setDeleteBookmark(item.id)}>
-                  <DeleteIcon />
+            <VStack space={1} direction={{
+              base: "row",
+            }}>
+              <Button colorScheme="danger" onPress={() => setDeleteBookmark(item.id)}>
+                  <DeleteIcon style={styles.actionItem}/>
                 </Button>
-                <Button colorScheme="primary" onPress={() => setInfoBookmark(item)}>
-                <InfoIcon />
+                <Button colorScheme="primary" onPress={() => setInfoBookmark(item)} style={styles.actionItem}>
+                  <InfoIcon style={styles.actionItem}/>
                 </Button>
-            </Text>
+            </VStack>
           </HStack>
         </Box>} keyExtractor={item => item.id} />
       </Box>
@@ -113,3 +110,9 @@ const BookmarksList = () => {
 }
 
 export default BookmarksList
+
+const styles = StyleSheet.create({
+  actionItem: {
+    color: '#fff',
+  } 
+})

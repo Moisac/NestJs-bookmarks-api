@@ -1,5 +1,6 @@
 import { useRef } from 'react'
-import { AlertDialog, Button, Text } from "native-base";
+import { AlertDialog, Button, Text, Link } from "native-base";
+import { formatDate } from '../../util/DateUtils'
 
 const CustomAlertDialog = ({ 
   deleteBookmark, 
@@ -28,9 +29,22 @@ const CustomAlertDialog = ({
               <>
                 <Text>Title: { infoBookmark?.title }</Text>
                 <Text>Description: { infoBookmark?.description }</Text>
-                <Text>URL: { infoBookmark?.link }</Text>
-                <Text>Created at: { infoBookmark?.createdAt }</Text>
-                <Text>Updated at: { infoBookmark?.createdAt }</Text>
+                <Text>URL: 
+                  <Link 
+                  href={infoBookmark?.link} 
+                  isExternal 
+                  _text={{
+                    _light: {
+                      color: "darkBlue.600"
+                    },
+                    color: "darkBlue.600"
+                  }}
+                >
+                    Click here
+                  </Link>
+                </Text>
+                <Text>Created at: { formatDate(new Date(infoBookmark?.createdAt)) }</Text>
+                <Text>Updated at: { formatDate(new Date(infoBookmark?.createdAt)) }</Text>
               </>
             )} 
           </AlertDialog.Body>

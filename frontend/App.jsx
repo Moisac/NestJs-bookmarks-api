@@ -51,7 +51,7 @@ export default function App() {
               name="AddBookmark"
               component={AddBookmark}
               options={{
-                title: 'Add',
+                title: 'Add bookmark',
                 headerTitleAlign: 'center',
                 headerShown: true
               }}
