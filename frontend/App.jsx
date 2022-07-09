@@ -36,13 +36,12 @@ export default function App() {
     <NavigationContainer>
       <NativeBaseProvider>
           <StatusBar style='auto' />
-
-          <Stack.Navigator initialRouteName='AddBookmark'>
+          <Stack.Navigator initialRouteName='AddBookmark' style={styles.container}>
             <Stack.Screen 
               name="BookmarksList" 
               component={BookmarksList}
               options={{
-                title: 'View all bookmarks',
+                title: 'Your bookmarks list',
                 headerTitleAlign: 'center',
                 headerShown: true
               }}
@@ -51,7 +50,11 @@ export default function App() {
             <Stack.Screen
               name="AddBookmark"
               component={AddBookmark}
-              options={{ title: 'Add bookmark',  }}
+              options={{
+                title: 'Add',
+                headerTitleAlign: 'center',
+                headerShown: true
+              }}
             />
           </Stack.Navigator>
       </NativeBaseProvider>
@@ -59,3 +62,11 @@ export default function App() {
   )
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})

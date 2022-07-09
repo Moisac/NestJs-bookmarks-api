@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Input, Stack, Center, TextArea, useToast, Box, Button } from "native-base"
-import { Button as DefaultButton } from 'react-native';
 import { JWT_TOKEN, API_ROOT } from '@env'
 import { useNavigation } from '@react-navigation/native';
+import { StyleSheet } from 'react-native'
 
 
 const AddBookmark = () => {
@@ -51,13 +51,17 @@ const AddBookmark = () => {
 
 
   return (
-    <Center>
-      <DefaultButton 
-        shadow={2} 
+    <Box>
+      <Button 
+        mb="5"
+        borderRadius="0"
         onPress={() => navigation.navigate('BookmarksList')}
-        title="View Bookmark List"
-      />
-      <Stack mt={3} space={4} w="75%" maxW="300px">
+      >
+        View bookmarks list
+      </Button>
+
+     <Center>
+     <Stack mt={3} space={4} w="75%" maxW="300px" styles={styles.addCard}>
         <Input size="md" placeholder="Title" onChangeText={
             value => setData({ ...formData, title: value})
         }
@@ -80,13 +84,18 @@ const AddBookmark = () => {
             Add Bookmark
         </Button>
       </Stack>
-      {/* <Stack>
-        { bookmarks && bookmarks.map(bookmark => 
-            { bookmark.title }
-        ) }
-      </Stack> */}
-    </Center>
+     </Center>
+    </Box>
   )
 }
 
 export default AddBookmark
+
+const styles = StyleSheet.create({
+  addCard: {
+    display: 'flex',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+})
